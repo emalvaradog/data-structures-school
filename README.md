@@ -1,1 +1,1 @@
-# Repo for data strctures class
+# Repo for data structures class
