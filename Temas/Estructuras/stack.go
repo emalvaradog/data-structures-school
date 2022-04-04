@@ -30,7 +30,6 @@ func (s *stack) isEmpty() bool {
 	if s.top == -1 {
 		return true
 	}
-
 	return false
 }
 
@@ -65,7 +64,7 @@ func (s *stack) pop(extract *node) {
 
 func (s *stack) empty(st *stack, error *int) {
 	var aux node
-	for s.isEmpty() {
+	for !s.isEmpty() {
 		s.pop(&aux)
 		fmt.Println("Valor extraido es ", aux.value)
 	}
@@ -80,7 +79,5 @@ func main() {
 		fmt.Scanln(&in.value)
 		s.push(in)
 	}
-
 	fmt.Println(s)
-
 }
