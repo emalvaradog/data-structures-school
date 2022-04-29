@@ -25,9 +25,7 @@ type Queue struct {
 
 // CreateDoubleQueue -> Create a new queue
 func CreateDoubleQueue() *Queue {
-	q := new(Queue)
-	q.cursor = 0
-	return q
+	return new(Queue)
 }
 
 // PushBack -> Add element to end of queue

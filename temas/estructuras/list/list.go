@@ -1,60 +1,101 @@
 package list
 
+import "fmt"
+
+// Dato struct
 type Dato struct {
-	valor int
+	Valor int
 }
 
+// Nodo struct
 type Nodo struct {
-	info Dato
-	next* Nodo
-	pos int
+	Info Dato
+	Next* Nodo
 }
 
+// List struct
 type List struct {
-	head* Nodo
+	Head* Nodo
+	Len int
 }
 
-func createList() *List {
-	var l List
-	return &l
+// CreateList public function
+func CreateList() *List {
+	return new(List)
 }
 
-func (l* List) addRight(data Data) {
-	node := Nodo{info: data}
-	var pos int
-	n := l.head
-	for ; n.next != nil; n = n.next {	
-		pos++
+// AddRight public method
+func (l* List) AddRight(data Dato) {
+	node := &Nodo{Info: data}
+	n := l.Head
+	if l.Head == nil {
+		l.Head = node
+	} else {
+		for ; n.Next != nil; n = n.Next {	
+		}
+		n.Next = node
 	}
-	node.pos = pos
-	n.next = node
+
+	l.Len++
 }
 
-func (l* List) addLeft(data Dato) {
-	node := Nodo{info: data, pos: 0}
-	node.next = l.head
-	l.head = node
+// AddLeft public method
+func (l* List) AddLeft(data Dato) {
+	node := &Nodo{Info: data}
+	if l.Head == nil {
+		l.Head = node
+	} else {
+		node.Next = l.Head
+		l.Head = node
+	}
+	
+	l.Len++
 }
 
-func (l* List) addNPos(data Dato, pos int) {
+// AddNPos public metod
+func (l* List) AddNPos(data Dato, pos int) {
 	var counter int
-	n := l.head
+	node := &Nodo{Info: data}	
+	n := l.Head
 
-	for ; counter != pos-1 ; counter++{
-		n = n.next
+	if l.Head == nil {
+		l.Head = node
+	} else if pos == 0 {
+		node.Next = l.Head
+		l.Head = node 
+	}	else if pos > l.Len {
+		fmt.Printf("Position not valid, you want to inset into %d, but list only has %d \n", pos, l.Len)
+	} else {
+		for ; counter != pos-1 ; counter++{
+			n = n.Next
+		}
+		node.Next = n.Next
+		n.Next = node
 	}
 
-	node := Nodo{info: data}
-	node.next = n.next
-	n.next = node
+	l.Len++
 }
 
+// DeleteList public method
+func (l* List) DeleteList() {
+	l.Head = nil
+}
 
-func (l* List) imprimirList() {
-	n := l.head
+// PrintList public method
+func (l* List) PrintList() {
 	var i int
-	for ; n.next != nil ; n = n.next {
-		i++
-		fmr.Printf("Dato: %d | Pos: %d", n.info.valor, i)
+
+	n := l.Head
+
+	if n == nil {
+		fmt.Println("Lista vacía")
+
+	} else {
+		for ; n != nil ; n = n.Next {
+			fmt.Printf("Dato: %d | Pos: %d \n", n.Info.Valor, i)
+			i++
+		}
+		// fmt.Printf("Dato: %d | Pos: %d \n", n.Info.Valor, i)
 	}
 }
+
