@@ -5,14 +5,14 @@ import (
 	"strings"
 )
 
-// Data public struct
-type Data struct {
+// DataQueue public struct
+type DataQueue struct {
 	Value int
 }
 
 // Node public struct
 type Node struct {
-	Data Data
+	Data DataQueue
 	next *Node
 }
 
@@ -25,13 +25,11 @@ type Queue struct {
 
 // CreateQueue -> Create a new queue
 func CreateQueue() *Queue {
-	q := new(Queue)
-	q.cursor = 0
-	return q
+	return new(Queue)
 }
 
 // Enqueue -> Add new element to queue
-func (q *Queue) Enqueue(data Data) {
+func (q *Queue) Enqueue(data DataQueue) {
 	newNode := &Node{Data: data}
 	if q.isEmpty() {
 		q.head = newNode

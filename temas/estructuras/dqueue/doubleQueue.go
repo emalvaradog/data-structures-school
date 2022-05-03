@@ -5,14 +5,14 @@ import (
 	"strings"
 )
 
-// Data public struct
-type Data struct {
+// DataDQueue public struct
+type DataDQueue struct {
 	Value int
 }
 
 // Node public struct
 type Node struct {
-	Data Data
+	Data DataDQueue
 	next *Node
 }
 
@@ -29,7 +29,7 @@ func CreateDoubleQueue() *Queue {
 }
 
 // PushBack -> Add element to end of queue
-func (q *Queue) PushBack(data Data) {
+func (q *Queue) PushBack(data DataDQueue) {
 	newNode := &Node{Data: data}
 
 	if q.isEmpty(){
@@ -45,7 +45,7 @@ func (q *Queue) PushBack(data Data) {
 }
 
 // PushFront -> Add element to front of queue
-func (q *Queue) PushFront(data Data) {
+func (q *Queue) PushFront(data DataDQueue) {
 	newNode := &Node{Data: data}
 	if q.isEmpty() {
 		q.head = newNode
@@ -80,7 +80,7 @@ func(q *Queue) PopBack(){
 		q.head = nil
 		q.tail = nil
 		q.cursor = 0
-	} else {
+
 		it := q.head
 		for ; it.next != q.tail; it = it.next {
 		}

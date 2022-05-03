@@ -2,14 +2,14 @@ package stack
 
 import "fmt"
 
-// Nodo public struct
-type Nodo struct {
+// NodeStack public struct
+type NodeStack struct {
 	Value int
 }
 
 // Stack public struct
 type Stack struct {
-	Data [5]Nodo
+	Data [5]NodeStack
 	Top, Err int
 }
 
@@ -42,7 +42,7 @@ func (s *Stack) isFull() bool {
 	return false
 }
 
-func (s *Stack) push(data Nodo) {
+func (s *Stack) push(data NodeStack) {
 	if !s.isFull() {
 		(*s).Top++
 		(*s).Data[s.Top] = data
@@ -53,7 +53,7 @@ func (s *Stack) push(data Nodo) {
 	}
 }
 
-func (s *Stack) pop(extract *Nodo) {
+func (s *Stack) pop(extract *NodeStack) {
 	if !s.isEmpty() {
 		*extract = s.Data[s.Top]
 		s.Top--
@@ -65,7 +65,7 @@ func (s *Stack) pop(extract *Nodo) {
 }
 
 func (s *Stack) empty(st *Stack, Error *int) {
-	var aux Nodo
+	var aux NodeStack
 	for !s.isEmpty() {
 		s.pop(&aux)
 		fmt.Println("Valor extraido es ", aux.Value)
@@ -77,7 +77,7 @@ func (s *Stack) empty(st *Stack, Error *int) {
 // 	s := crearTDA()
 // 	for i := 0; i < 5; i++ {
 // 		fmt.Println("Ingresar valor")
-// 		var in Nodo
+// 		var in NodeStack
 // 		fmt.Scanln(&in.Value)
 // 		s.push(in)
 // 	}

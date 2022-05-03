@@ -2,20 +2,20 @@ package list
 
 import "fmt"
 
-// Dato struct
-type Dato struct {
+// DataList struct
+type DataList struct {
 	Valor int
 }
 
-// Nodo struct
-type Nodo struct {
-	Info Dato
-	Next* Nodo
+// NodeList struct
+type NodeList struct {
+	Info DataList
+	Next* NodeList
 }
 
 // List struct
 type List struct {
-	Head* Nodo
+	Head* NodeList
 	Len int
 }
 
@@ -25,8 +25,8 @@ func CreateList() *List {
 }
 
 // AddRight public method
-func (l* List) AddRight(data Dato) {
-	node := &Nodo{Info: data}
+func (l* List) AddRight(data DataList) {
+	node := &NodeList{Info: data}
 	n := l.Head
 	if l.Head == nil {
 		l.Head = node
@@ -40,8 +40,8 @@ func (l* List) AddRight(data Dato) {
 }
 
 // AddLeft public method
-func (l* List) AddLeft(data Dato) {
-	node := &Nodo{Info: data}
+func (l* List) AddLeft(data DataList) {
+	node := &NodeList{Info: data}
 	if l.Head == nil {
 		l.Head = node
 	} else {
@@ -53,9 +53,9 @@ func (l* List) AddLeft(data Dato) {
 }
 
 // AddNPos public metod
-func (l* List) AddNPos(data Dato, pos int) {
+func (l* List) AddNPos(data DataList, pos int) {
 	var counter int
-	node := &Nodo{Info: data}	
+	node := &NodeList{Info: data}	
 	n := l.Head
 
 	if l.Head == nil {
@@ -92,10 +92,10 @@ func (l* List) PrintList() {
 
 	} else {
 		for ; n != nil ; n = n.Next {
-			fmt.Printf("Dato: %d | Pos: %d \n", n.Info.Valor, i)
+			fmt.Printf("DataList: %d | Pos: %d \n", n.Info.Valor, i)
 			i++
 		}
-		// fmt.Printf("Dato: %d | Pos: %d \n", n.Info.Valor, i)
+		// fmt.Printf("DataList: %d | Pos: %d \n", n.Info.Valor, i)
 	}
 }
 

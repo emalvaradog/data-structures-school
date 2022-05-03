@@ -2,14 +2,14 @@ package distack
 
 import "fmt"
 
-// Node public struct
-type Node struct {
+// NodeDstack public struct
+type NodeDstack struct {
 	Value int
 }
 
 // Dstack public struct
 type Dstack struct {
-	Data []Node
+	Data []NodeDstack
 	Top, Err, Cap int
 }
 
@@ -48,7 +48,7 @@ func (s *Dstack) IsFull() bool {
 }
 
 // Push - Append element to stack
-func (s *Dstack) Push(data Node) {
+func (s *Dstack) Push(data NodeDstack) {
 	if s.IsFull() {
 		(*s).Data = append((*s).Data, data)
 		(*s).Top++
@@ -62,7 +62,7 @@ func (s *Dstack) Push(data Node) {
 }
 
 // Pop - Remove last element
-func (s *Dstack) Pop(extract *Node) {
+func (s *Dstack) Pop(extract *NodeDstack) {
 	if !s.IsEmpty() {
 		*extract = s.Data[s.Top]
 		s.Data = s.Data[:s.Top]
@@ -76,7 +76,7 @@ func (s *Dstack) Pop(extract *Node) {
 
 // Empty - Free stack
 func (s *Dstack) Empty() {
-	var aux Node
+	var aux NodeDstack
 	for !s.IsEmpty() {
 		s.Pop(&aux)
 		fmt.Println("Valor extraido es ", aux.Value)
@@ -88,12 +88,12 @@ func (s *Dstack) Empty() {
 // 	s := CrearDstack()
 // 	for i := 0; i < 5; i++ {
 // 		fmt.Println("Ingresar valor")
-// 		var in Node
+// 		var in NodeDstack
 // 		fmt.Scanln(&in.Value)
 // 		s.push(in)
 // 	}
 // 	fmt.Println(s)
-// 	var ex Node
+// 	var ex NodeDstack
 // 	s.pop(&ex)
 // 	s.pop(&ex)
 // 	s.pop(&ex)
