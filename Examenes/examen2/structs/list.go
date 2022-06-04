@@ -80,28 +80,28 @@ func (l* List) AddNPos(data DataList, pos int) {
 
 // ServeCustomers - Remove first two elements from list
 func (l* List) ServeCustomers(r int) {
-	fmt.Printf("Robot: %d \n", r)
+	fmt.Printf("Juego: %d \n", r)
 	if l.Len == 0 {
 		fmt.Println("No hay clientes")
 		
 	}	else if l.Len == 1 {
 		fmt.Println("Ventanilla:")
-		fmt.Printf("-- Nombre: %s | Edad: %d \n", l.Head.Info.Name, l.Head.Info.Age)
+		fmt.Printf("-- Nombre: %s | Altura: %0.2f \n", l.Head.Info.Name, l.Head.Info.Height)
 		l.Head = nil
 		l.Len--
 
 	} else {
 		fmt.Println("Ventanilla:")
-		fmt.Printf("-- Nombre: %s | Edad: %d \n", l.Head.Info.Name, l.Head.Info.Age)
+		fmt.Printf("-- Nombre: %s | Altura: %0.2f \n", l.Head.Info.Name, l.Head.Info.Height)
 		l.Head = l.Head.Next
 		l.Len--
-		if l.Head.Next != nil {
-			fmt.Printf("-- Nombre: %s | Edad: %d \n", l.Head.Info.Name, l.Head.Info.Age)
-			l.Head = l.Head.Next
-			l.Len--
-			fmt.Printf("Pendientes: \n")
-			l.PrintList()
-		}
+
+		fmt.Printf("-- Nombre: %s | Altura: %0.2f \n", l.Head.Info.Name, l.Head.Info.Height)
+		l.Head = l.Head.Next
+		l.Len--
+
+		fmt.Printf("Pendientes: \n")
+		l.PrintList()
 	} 
 	fmt.Println("")
 }
@@ -122,7 +122,7 @@ func (l* List) PrintList() {
 
 	} else {
 		for ; n != nil ; n = n.Next {
-			fmt.Printf("-- Nombre: %s | Edad: %d \n", n.Info.Name, n.Info.Age)
+			fmt.Printf("-- Nombre: %s | Altura: %0.2f \n", n.Info.Name, n.Info.Height)
 			i++
 		}
 		// fmt.Printf("DataList: %d | Pos: %d \n", n.Info.Valor, i)

@@ -12,14 +12,16 @@ import (
 
 func addClient(q* structs.Queue) {
 	d := structs.DataQueue{}
-	rand.Seed(time.Now().Unix())
-	max := 60
-	min := 18
+	rand.Seed(time.Now().UnixNano())
+	max := 1.0
+	min := 2.0
 	fmt.Println("Nombre")
 	fmt.Scanln(&d.Name)
+	fmt.Println("Edad")
+	fmt.Scanln(&d.Age)
+	 d.Height = min + rand.Float64() * (max - min)
 	fmt.Println("Altura")
-	fmt.Scanln(&d.Height)
- 	d.Age = min + rand.Intn(max - min + 1)	
+	fmt.Printf("%0.2f \n", d.Height)
 	q.Enqueue(d)
 	fmt.Println("")
 }
@@ -33,7 +35,9 @@ func serveClients(l1, l2, l3, l4, l5 *structs.List) {
 
 	if list[4] == 1 || list[4] == 2{
 		limit = 1
-	} else{
+	} else if list[4] == 3 {
+		limit = 2
+	} else {		
 		limit = list[4] - 2
 	}
 
@@ -67,13 +71,13 @@ func main() {
 	for i := 0; i < args; i++ {
 		cq := q.Dequeue()
 		cl := structs.DataList{Name: cq.Name, Age: cq.Age, Height: cq.Height}
-		if cq.Age > 18 && cq.Age < 22 {
+		if cq.Height > 1.0 && cq.Height < 1.2 {
 			l1.AddRight(cl)
-		} else if cq.Age > 22 && cq.Age < 44 {
+		} else if cq.Height > 1.2 && cq.Height < 1.7 {
 			l3.AddRight(cl)
-		} else if cq.Age > 44 && cq.Age <= 60 {
+		} else if cq.Height > 1.7 && cq.Height <= 2.0 {
 			l5.AddRight(cl)
-		} else if cq.Age == 22 || cq.Age == 44 {
+		} else if cq.Height == 1.2 || cq.Height == 1.7 {
 			l4.AddRight(cl)
 		} else {
 			l2.AddRight(cl)
