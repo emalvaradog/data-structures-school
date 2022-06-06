@@ -143,9 +143,8 @@ func (t *Tree) Depth() int {
 
 	if lDepth > rDepth {
 		return lDepth
-	} else {
-		return rDepth
-	}
+	} 
+	return rDepth
 }
 
 // PreOrder prints root, left sub-tree, right sub-tree
