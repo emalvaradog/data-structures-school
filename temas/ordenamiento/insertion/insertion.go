@@ -13,7 +13,7 @@ type contenedor struct {
 func insertionSort(c []contenedor)[]contenedor{
 	var pivote contenedor
 	var j int
-	for i:= 0; i< len(c); i++ {
+	for i := 0; i< len(c); i++ {
 		pivote = c[i]
 		j = i-1
 		for j>=0 && c[j].cont.valor > pivote.cont.valor {

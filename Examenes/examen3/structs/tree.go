@@ -1,10 +1,14 @@
-package tree
+package structs
 
-import "fmt"
+import (
+	"bytes"
+	"fmt"
+)
 
 // TData -> Node data struct
 type TData struct {
-	Value int
+	Char string
+	Freq int
 }
 
 // Tree -> Generic tree node element
@@ -20,7 +24,9 @@ func CreateNode(data TData) *Tree {
 
 // AddNode adds  new node to the tree
 func (t *Tree) AddNode(data TData) {
-	if data.Value < t.Data.Value {
+	if t == nil {
+		return
+	} else if data.Freq < t.Data.Freq {
 		if t.Left == nil {
 			t.Left = CreateNode(data)
 		} else {
@@ -35,48 +41,27 @@ func (t *Tree) AddNode(data TData) {
 	}
 }
 
-// AddTree adds tree to a tree
-func (t *Tree) AddTree(tree Tree) {
-	if tree.Data.Value < t.Data.Value {
-		if t.Left == nil {
-			t.Left = &tree
-		} else {
-			t.Left.AddTree(tree)
-		}
-	} else {
-		if t.Right == nil {
-			t.Right = &tree
-		} else {
-			t.Right.AddTree(tree)
-		}
-	}
-}
-
 // SearchNode searches for a certain node in the tree
-func (t *Tree) SearchNode(data TData) *Tree {
-	res := &Tree{}	
-	searchNode(t, data, res)
-	return res
+func (t *Tree) SearchNode(data TData) string {
+	var code bytes.Buffer
+	searchNode(t, data, &code)
+	return fmt.Sprintf("Char: %s | Code: %s \n", data.Char, code.String())
 }
 
-func searchNode(root *Tree, data TData, foundNode *Tree) {
-	if root == nil {
-		return
-	}
-
-	if root.Data.Value == data.Value {
-		foundNode.Data = root.Data
-		foundNode.Left = root.Left
-		foundNode.Right = root.Right
-
-		// fmt.Println("FoundNode")
-		// fmt.Printf("Left: %d | Right: %d \n", foundNode.Left.Data.Value, foundNode.Right.Data.Value)
-	} else if data.Value < root.Data.Value{
-		searchNode(root.Left, data, foundNode)
-	} else {
-		searchNode(root.Right, data, foundNode)
+func searchNode(root *Tree, data TData, s *bytes.Buffer) {
+	if root != nil {
+		if root.Data.Char == data.Char {
+			s.WriteString("0")
+		} else if data.Freq > root.Data.Freq {
+			s.WriteString("1")
+			searchNode(root.Right, data, s)
+		} else {
+			s.WriteString("0")
+			searchNode(root.Left, data, s)
+		}
 	}
 }
+
 
 // DeleteNode deletes a certain node from the tree
 func (t *Tree) DeleteNode(data TData) {
@@ -99,12 +84,12 @@ func deleteNode(root *Tree, data TData) *Tree{
 		return nil
   }
 
-	if data.Value < root.Data.Value {
+	if data.Freq < root.Data.Freq {
 		root.Left = deleteNode(root.Left, data)
 		return root
 	}
 
-	if data.Value > root.Data.Value {
+	if data.Freq > root.Data.Freq {
 		root.Right = deleteNode(root.Right, data)
 		return root
 	}
@@ -135,7 +120,7 @@ func deleteNode(root *Tree, data TData) *Tree{
 		}
 	}
 
-	root.Data.Value = LeftmostRightside.Data.Value
+	root.Data.Freq = LeftmostRightside.Data.Freq
 	root.Right = deleteNode(root.Right, root.Data)
 	return root
 }
@@ -145,6 +130,23 @@ func NewTree(root, left, right *Tree, data TData) {
 	root = CreateNode(data)
 	root.Left = left
 	root.Right = right
+}
+
+// AddTree adds tree to a tree
+func (t *Tree) AddTree(tree Tree) {
+	if tree.Data.Freq < t.Data.Freq {
+		if t.Left == nil {
+			t.Left = &tree
+		} else {
+			t.Left.AddTree(tree)
+		}
+	} else {
+		if t.Right == nil {
+			t.Right = &tree
+		} else {
+			t.Right.AddTree(tree)
+		}
+	}
 }
 
 // Depth shows current tree depth
@@ -169,7 +171,7 @@ func (t *Tree) PreOrder() {
 	if t == nil {
 		return
 	}
-	fmt.Println(t.Data.Value)
+	fmt.Println(t.Data.Freq)
 	t.Left.PreOrder()
 	t.Right.PreOrder()
 }
@@ -182,7 +184,7 @@ func (t *Tree) InOrder() {
 	}
 
 	t.Left.InOrder()
-	fmt.Println(t.Data.Value)
+	fmt.Println(t.Data.Freq)
 	t.Right.InOrder()
 }
 
@@ -193,7 +195,7 @@ func (t* Tree) PostOrder() {
 	} 
 	t.Left.PostOrder()
 	t.Right.PostOrder()
-	fmt.Println(t.Data.Value)
+	fmt.Println(t.Data.Freq)
 }
 
 // MinNode returns smallest node in the tree
